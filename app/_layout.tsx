@@ -1,24 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Text, View } from "react-native";
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { useFonts } from "expo-font";
+
+import { Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [fontsLoaded] = useFonts({
+    Kanit_400Regular,
+    Kanit_700Bold,
+  });
+
+  // Loading Screen สำหรับ iOS
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#000080",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 26,
+            fontFamily: "Kanit_700Bold",
+          }}
+        >
+          Hopeline
+        </Text>
+      </View>
+    );
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="index" />
+
+      <Stack.Screen name="signin" />
+
+      <Stack.Screen name="signup" />
+    </Stack>
   );
 }
