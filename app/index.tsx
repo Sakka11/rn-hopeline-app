@@ -77,9 +77,12 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#FFFFFF",
 
+    // โค้ง = ซ้ายบน + ขวาล่าง
     borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
     borderBottomRightRadius: 22,
+
+    // เหลี่ยม = ขวาบน + ซ้ายล่าง
+    borderTopRightRadius: 0,
     borderBottomLeftRadius: 0,
 
     justifyContent: "center",
